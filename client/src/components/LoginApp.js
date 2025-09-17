@@ -27,14 +27,17 @@ const LoginApp = () => {
       }
     })
     .catch((err) => {
-      // Handle network errors or other non-200 responses
-      if (err.response && err.response.data && err.response.data.message) {
-        alert(err.response.data.message);
-      } else {
-        alert("An unexpected error occurred. Please try again.");
-      }
-      console.log(err);
-    });
+  if (err.response && err.response.data && err.response.data.message) {
+    alert(err.response.data.message);
+  } else if (err.response) {
+    // A response was received, but no specific message was in the body
+    alert(`Server responded with status: ${err.response.status}`);
+  } else {
+    // No response was received at all (network error)
+    alert("An unexpected network error occurred. Please check your connection.");
+  }
+  console.log(err);
+});
 
   setEmail("");
   setPassword("");
