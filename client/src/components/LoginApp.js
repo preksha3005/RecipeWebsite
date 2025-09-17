@@ -4,7 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import "../style/login.css";
 import Navbar from "./Navbar";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = "https://recipebackend-noat.onrender.com";
 axios.defaults.withCredentials = true;
 
 const LoginApp = () => {

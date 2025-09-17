@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import '../style/createrecipe.css'
 import Navbar_login from "./Navbar_Login";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = "https://recipebackend-noat.onrender.com";
 axios.defaults.withCredentials = true;
 
 export default function CreateRecipe() {

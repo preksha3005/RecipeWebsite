@@ -4,7 +4,8 @@ import axios from "axios";
 import Navbar_login from "./Navbar_Login";
 import "../style/viewrecipe.css"; // new CSS file
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = "https://recipebackend-noat.onrender.com";
 axios.defaults.withCredentials = true;
 
 export default function ViewRecipe() {

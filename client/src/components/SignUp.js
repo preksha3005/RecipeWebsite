@@ -45,7 +45,8 @@ export default function SignUp() {
       });
   };
 
-  axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+  // axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+  axios.defaults.baseURL = "https://recipebackend-noat.onrender.com";
   axios.defaults.withCredentials = true;
   return (
     <div>

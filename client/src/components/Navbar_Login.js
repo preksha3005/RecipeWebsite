@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../style/navbar-login.css'
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = "https://recipebackend-noat.onrender.com";
 axios.defaults.withCredentials = true;
 
 const Navbar_login = () => {

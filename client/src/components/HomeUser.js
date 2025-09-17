@@ -4,7 +4,8 @@ import "../style/homeuser.css";
 import Navbar_login from "./Navbar_Login";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
+axios.defaults.baseURL = "https://recipebackend-noat.onrender.com";
 axios.defaults.withCredentials = true;
 
 export default function HomeUser() {
