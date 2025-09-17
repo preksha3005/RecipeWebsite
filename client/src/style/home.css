@@ -1,0 +1,125 @@
+/* Reset */
+body, h1, h2, p, a {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.homepage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #1A1A1A; /* Dark background */
+  color: #E0E0E0; /* Light text color for readability */
+}
+/* Hero */
+.hero {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h2 {
+  font-size: 44px;
+  margin-bottom: 20px;
+  color: #E0E0E0;
+}
+
+.hero-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #A0A0A0; /* Slightly different text color for emphasis */
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 15px;
+  margin-left: 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Stronger shadow to stand out */
+}
+
+
+
+/* 📱 Mobile (max 600px) */
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .hero-text h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+  }
+
+  .hero-text p {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .hero-image img {
+    margin: 20px auto 0;
+    max-width: 95%;
+    display: block;
+  }
+}
+
+
+/* 📱 Tablets (601px – 900px) */
+@media (max-width: 900px) and (min-width: 601px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text h2 {
+    font-size: 36px;
+  }
+
+  .hero-text p {
+    font-size: 17px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-image img {
+    margin: 25px 0 0 0;
+    max-width: 80%;
+  }
+}
+
+/* 💻 Small laptops (901px – 1200px) */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .hero-text h2 {
+    font-size: 40px;
+  }
+
+  .hero-text p {
+    font-size: 18px;
+  }
+
+  .hero-image img {
+    max-width: 400px;
+  }
+}

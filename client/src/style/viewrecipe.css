@@ -1,0 +1,111 @@
+.recipe-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 18px;
+  padding: 40px 20px;
+  background-color: #242424;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.recipe-detail img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.recipe-detail h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #F7D08A;
+  margin-bottom: 10px;
+}
+
+.recipe-detail .description {
+  font-size: 1.1rem;
+  color: #A0A0A0;
+  margin-bottom: 25px;
+}
+
+.recipe-detail h3 {
+  font-size: 1.8rem;
+  color: #F7D08A;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.recipe-detail ul,
+.recipe-detail ol {
+  padding-left: 20px;
+}
+
+.recipe-detail li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.recipe-detail strong {
+  color: #F7D08A;
+}
+
+.recipe-detail .actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.recipe-detail .actions button {
+  background-color: #6B2737;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.recipe-detail .actions button:hover {
+  background: #90354A;
+}
+
+/* Fallback for broken images */
+.recipe-detail img[src*="default.jpg"] {
+  background-color: #333;
+  color: #A0A0A0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Added a class for the loading message */
+.loading-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #A0A0A0;
+  margin-top: 50px;
+}
+
+.edit-btn{
+  background-color: #6B2737;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.edit-btn:hover{
+  background: #90354A;
+}

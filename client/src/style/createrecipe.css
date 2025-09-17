@@ -1,0 +1,156 @@
+/* create-recipe.css */
+
+.create-recipe-container {
+  min-height: 100vh;
+  background-color: #1A1A1A;
+  color: #E0E0E0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-recipe-container h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #F7D08A;
+  margin-bottom: 30px;
+}
+
+.create-recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  background-color: #242424;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.create-recipe-form input,
+.create-recipe-form textarea {
+  background-color: #333333;
+  border: 1px solid #444444;
+  color: #E0E0E0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.create-recipe-form input:focus,
+.create-recipe-form textarea:focus {
+  border-color: #6B2737;
+}
+
+.create-recipe-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.create-recipe-form button {
+  background-color: #6B2737;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.create-recipe-form button:hover:not(:disabled) {
+  background: #90354A;
+}
+
+.create-recipe-form button:disabled {
+  background-color: #444444;
+  cursor: not-allowed;
+}
+
+/* File input styling */
+.create-recipe-form input[type="file"] {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  color: #A0A0A0;
+}
+
+.create-recipe-form input[type="file"]::-webkit-file-upload-button {
+  background-color: #6B2737;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  outline: none;
+}
+
+.create-recipe-form input[type="file"]::-webkit-file-upload-button:hover {
+  background: #90354A;
+}
+
+
+/*
+ * Media query for tablets.
+ * Applies to devices with a screen width between 768px and 1024px.
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .create-recipe-container h2 {
+    font-size: 3rem; /* Bigger heading */
+  }
+
+  .create-recipe-form {
+    padding: 40px; /* More spacing */
+    max-width: 700px; /* Wider form */
+  }
+
+  .create-recipe-form input,
+  .create-recipe-form textarea {
+    padding: 20px; /* Larger fields */
+    font-size: 1.2rem;
+  }
+
+  .create-recipe-form button {
+    padding: 20px;
+    font-size: 1.3rem;
+  }
+}
+
+/*
+ * Media query for mobile responsiveness.
+ * Applies to devices with a screen width of 768px or less.
+ */
+@media (max-width: 768px) {
+  .create-recipe-container {
+    padding: 20px 10px;
+  }
+
+  .create-recipe-container h2 {
+    font-size: 2rem; /* Smaller heading */
+    margin-bottom: 20px;
+  }
+
+  .create-recipe-form {
+    padding: 20px;
+    gap: 15px; /* Reduce spacing */
+  }
+
+  .create-recipe-form input,
+  .create-recipe-form textarea {
+    padding: 12px 15px; /* Smaller inputs */
+    font-size: 1rem;
+  }
+
+  .create-recipe-form button {
+    padding: 12px 15px;
+    font-size: 1.1rem;
+  }
+}

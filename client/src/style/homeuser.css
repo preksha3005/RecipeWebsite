@@ -1,0 +1,241 @@
+/* Reset and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #1A1A1A;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #E0E0E0;
+  line-height: 1.6;
+}
+
+/* Page Container */
+.homeuser-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #242424;
+  color: #E0E0E0;
+  border-bottom: 1px solid #333;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #1A1A1A;
+}
+
+.search-bar form {
+  display: flex;
+  flex-wrap: wrap; /* This will allow the items to wrap on smaller screens */
+  gap: 15px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-bar input {
+  flex: 1;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: #E0E0E0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #bb486a;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar button {
+  background-color: #6B2737;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.search-bar button:hover {
+  background: #90354A;
+  transform: translateY(-2px);
+}
+
+/* Recipe Grid */
+.recipes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* auto-fill fixes overflow */
+  gap: 25px;
+  padding: 40px;
+  flex: 1;
+  width: 100%; /* Ensure grid never exceeds screen */
+  overflow-x: hidden; /* Block horizontal scroll */
+}
+
+/* Recipe Card */
+.recipe-card {
+  background-color: #242424;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Image */
+.recipe-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #333;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Card Content */
+.recipe-card h3 {
+  color: #F7D08A;
+  margin: 15px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.recipe-card p {
+  color: #bbb;
+  font-size: 1rem;
+  margin: 0 15px 15px;
+}
+
+/* Actions */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px 20px;
+}
+
+.card-actions button {
+  background: transparent;
+  border: none;
+  color: #E0E0E0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.card-actions button:hover {
+  color: #bb486a;
+}
+
+.view-btn {
+  background: #6B2737;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #90354A;
+  transform: scale(1.05);
+}
+
+/* No Recipes Found */
+.no-recipes-found {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #A0A0A0;
+  margin-top: 40px;
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
+/* ================================
+   📱 RESPONSIVE MEDIA QUERIES
+   ================================ */
+
+/* Mobile first approach */
+@media (max-width: 767px) {
+  .recipes {
+    grid-template-columns: 1fr !important; /* Force single column */
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .recipe-card {
+    width: 100%; /* Fit inside parent */
+    max-width: 100%; 
+    margin: 0 auto; /* Center if needed */
+  }
+
+  .recipe-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+}
+
+/* Extra small mobile (up to 480px) */
+@media (max-width: 480px) {
+  .recipes {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .recipe-card img {
+    height: 140px;
+  }
+}
+
+/* Tablet (768px–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .recipes {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 30px;
+    padding: 30px;
+  }
+
+ .recipe-card {
+    max-width: 100%;
+    border-radius: 12px;
+    height: 50vh;
+  }
+
+
+  .recipe-card img {
+    height: 220px;
+  }
+}

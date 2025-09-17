@@ -1,0 +1,185 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px); 
+  color: #e0e0e0;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form container */
+.auth-container h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #e0e0e0;
+}
+
+.auth-form {
+  background: #242424; /* A slightly lighter shade for the form box */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Input fields */
+.auth-form input {
+  background: #333333;
+  border: 1px solid #444444;
+  color: #e0e0e0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+  border-color: #6b2737; /* Highlight with the primary color on focus */
+}
+
+/* Change placeholder color */
+.auth-form input::placeholder {
+  color: #a0a0a0;
+}
+
+/* Submit button */
+.auth-form button[type="submit"] {
+  background: #6b2737;
+  color: #ffffff;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-form button[type="submit"]:hover {
+  background: #90354a; /* Lighter hover state */
+}
+
+/* "Already have an account?" text */
+.switch-text {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #a0a0a0;
+}
+
+.switch-text .link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #6b2737;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.switch-text .link-btn:hover {
+  color: #90354a;
+  text-decoration: underline;
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .auth-container {
+    padding: 40px;
+    min-height: calc(100vh - 80px); 
+  }
+
+  .auth-container h2 {
+    font-size: 3.5rem; /* Further increased font size for tablet */
+  }
+
+  .auth-form {
+    padding: 60px; /* Increased padding */
+    max-width: 600px; /* Wider form for tablet */
+    gap: 20px; /* Increased gap between elements */
+  }
+
+  .auth-form input {
+    padding: 20px; /* Increased input padding for better feel on tablet */
+    font-size: 1.2rem; /* Increased input font size */
+  }
+
+  .auth-form button[type="submit"] {
+    padding: 20px; /* Increased button padding */
+    font-size: 1.2rem; /* Increased button font size */
+  }
+
+  .switch-text {
+    font-size: 1.6rem;
+  }
+
+.switch-text .link-btn   {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 10px;
+    min-height: calc(100vh - 60px); /* Adjusted for a smaller mobile navbar */
+  }
+
+  .auth-form {
+    padding: 20px;
+  }
+
+  .auth-container h2 {
+    font-size: 2.5rem; /* Increased to make it more prominent on mobile */
+    margin-bottom: 15px;
+  }
+
+  .auth-form input {
+    padding: 12px 15px; /* Adjusted input padding for better feel on mobile */
+  }
+  
+  .auth-form button[type="submit"] {
+    padding: 12px 15px; /* Adjusted button padding for better feel on mobile */
+  }
+
+  .navbar {
+    flex-direction: row;
+    padding: 15px 20px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar .logo {
+    font-size: 20px;
+  }
+
+  .navbar nav {
+    width: auto;
+    margin-top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  }
+  .navbar .nav-link {
+    font-size: 1.0rem;
+  }
+
+  .btn {
+    padding: 8px 16px;
+  }
+
+  .switch-text {
+    font-size: 1.3rem;
+  }
+  .switch-text .link-btn   {
+    font-size: 1.4rem;
+  }
+}

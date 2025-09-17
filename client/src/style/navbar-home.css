@@ -1,0 +1,76 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #242424; /* Slightly lighter than the body background */
+  border-bottom: 1px solid #333333;
+}
+
+.logo {
+  font-size: 24px;
+  color: #6B2737; /* Same brand color */
+}
+
+.nav-link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #E0E0E0;
+}
+
+.btn {
+  background: #6B2737;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #90354A; /* Lighter hover state for dark theme */
+}
+
+.btn-secondary {
+  border: 1px solid #6B2737;
+  color: white;
+  background: transparent;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  margin-left: 10px;
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #333333; /* Darker hover state for dark theme */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    /* Keep the main navbar as a row to align the logo and links */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+  }
+
+  .navbar nav {
+    /* Make sure the navigation container is a row */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Use gap for spacing between the links */
+    margin-top: 0; /* Remove top margin from previous attempt */
+  }
+
+  .nav-link {
+    margin-right: 0; /* Remove horizontal margin */
+    font-size: 14px; /* Optional: make the font slightly smaller */
+  }
+
+  .btn {
+    padding: 8px 16px; /* Reduce padding for smaller buttons */
+    margin: 0; /* Remove any old margins */
+  }
+}
