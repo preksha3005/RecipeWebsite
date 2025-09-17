@@ -437,26 +437,26 @@ app.post("/likerecipe/:id", verifyuser, async (req, res) => {
 // })
 
 app.post("/search", verifyuser, async (req, res) => {
-  try {
-    const { ingredients, tags } = req.body;
-    let filter = {};
-      if (ingredients && ingredients.length > 0) {
-        const ingred = ingredients.split(",").map((i) => i.trim());
-        filter.ingredients = { $in: ingred.map((i) => new RegExp(i, "i")) };
-      }
+  try {
+    const { ingredients, tags } = req.body;
+    let filter = {};
+      if (ingredients && ingredients.length > 0) {
+        const ingred = ingredients.split(",").map((i) => i.trim());
+        filter.ingredients = { $in: ingred.map((i) => new RegExp(i, "i")) };
+      }
 
-      if (tags && tags.length > 0) {
-        const tag = tags.split(",").map((t) => t.trim().toLowerCase());
-        filter.tags = { $in: tag };
-      }
+      if (tags && tags.length > 0) {
+        const tag = tags.split(",").map((t) => t.trim().toLowerCase());
+        filter.tags = { $in: tag };
+      }
 
-      const recipes = await Recipe.find(filter)
-        .populate("author", "name")
-        .sort({ createdAt: -1 });
-      res.json(recipes);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
+      const recipes = await Recipe.find(filter)
+        .populate("author", "name")
+        .sort({ createdAt: -1 });
+      res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 if (process.env.NODE_ENV === "production") {
