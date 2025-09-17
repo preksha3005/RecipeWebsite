@@ -440,8 +440,6 @@ app.post("/search", verifyuser, async (req, res) => {
   try {
     const { ingredients, tags } = req.body;
     let filter = {};
-    if (ingredients && ingredients.length > 0) {
-      const ingred = ingredients.split(",").map((i) => i.trim().toLowerCase());
       if (ingredients && ingredients.length > 0) {
         const ingred = ingredients.split(",").map((i) => i.trim());
         filter.ingredients = { $in: ingred.map((i) => new RegExp(i, "i")) };
@@ -456,7 +454,6 @@ app.post("/search", verifyuser, async (req, res) => {
         .populate("author", "name")
         .sort({ createdAt: -1 });
       res.json(recipes);
-    }
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
