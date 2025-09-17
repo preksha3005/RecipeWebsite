@@ -21,12 +21,14 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(
-  cors({
-    origin: "http://localhost:3000", // Allow only your frontend's origin
-    credentials: true, // Allow cookies to be sent
-  })
-);
+app.use(cors({
+  origin: 'https://recipefrontend-vgrt.onrender.com',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+
 app.use(express.json());
 app.use(cookieParser()); // middleware function in Express.js that enables the parsing of cookies in incoming requests.
 // mongoose.connect("mongodb://localhost:27017/travel").then(() => {
