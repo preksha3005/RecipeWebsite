@@ -21,13 +21,14 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(cors({
-  origin: 'https://recipefrontend-vgrt.onrender.com',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+app.use(
+  cors({
+    origin: "https://recipefrontend-vgrt.onrender.com",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser()); // middleware function in Express.js that enables the parsing of cookies in incoming requests.
@@ -77,12 +78,10 @@ app.post("/loginapp", async (req, res) => {
       );
       res.cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Only set secure: true in production (HTTPS)
-        sameSite: process.env.NODE_ENV === "production" ? 'None' : 'Lax', // 'None' for cross-site, 'Lax' for development
-        maxAge: 3600000, // Match token expiration: 1 hour in milliseconds
-        // domain: '.onrender.com' // Optional: If both frontend/backend are on subdomains of .onrender.com, this can help
+        secure: true, // Always set to true for production HTTPS
+        sameSite: "None", // 'None' is required for cross-site cookies
+        maxAge: 3600000,
       });
-
 
       return res.json({ status: true, message: "Login successful" });
     }
@@ -439,26 +438,26 @@ app.post("/likerecipe/:id", verifyuser, async (req, res) => {
 // })
 
 app.post("/search", verifyuser, async (req, res) => {
-  try {
-    const { ingredients, tags } = req.body;
-    let filter = {};
-      if (ingredients && ingredients.length > 0) {
-        const ingred = ingredients.split(",").map((i) => i.trim());
-        filter.ingredients = { $in: ingred.map((i) => new RegExp(i, "i")) };
-      }
+  try {
+    const { ingredients, tags } = req.body;
+    let filter = {};
+    if (ingredients && ingredients.length > 0) {
+      const ingred = ingredients.split(",").map((i) => i.trim());
+      filter.ingredients = { $in: ingred.map((i) => new RegExp(i, "i")) };
+    }
 
-      if (tags && tags.length > 0) {
-        const tag = tags.split(",").map((t) => t.trim().toLowerCase());
-        filter.tags = { $in: tag };
-      }
+    if (tags && tags.length > 0) {
+      const tag = tags.split(",").map((t) => t.trim().toLowerCase());
+      filter.tags = { $in: tag };
+    }
 
-      const recipes = await Recipe.find(filter)
-        .populate("author", "name")
-        .sort({ createdAt: -1 });
-      res.json(recipes);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
+    const recipes = await Recipe.find(filter)
+      .populate("author", "name")
+      .sort({ createdAt: -1 });
+    res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 // if (process.env.NODE_ENV === "production") {
