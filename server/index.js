@@ -192,23 +192,33 @@ const upload = multer({ storage });
 // Upload Recipe Route (Fixed)
 app.post(
   "/uploadrecipes",
-  verifyuser, // verify user BEFORE handling file upload
-  upload.single("image"),
+  verifyuser, // First verify user
+  upload.single("image"), // Then handle image upload
   async (req, res) => {
     try {
+      // 1️⃣ Check that req.user exists
+      if (!req.user) {
+        return res.status(401).json({ message: "Unauthorized: User not verified" });
+      }
+
       console.log("Incoming upload from:", req.user);
+      console.log("Body received:", req.body);
+      console.log("File received:", req.file);
 
       const { title, description, ingredients, steps, tags } = req.body;
 
+      // 2️⃣ Validate required fields
       if (!title || !description || !ingredients || !steps) {
         return res.status(400).json({ message: "Missing required fields" });
       }
 
+      // 3️⃣ Get image URL if provided
       let imageUrl = "";
       if (req.file) {
-        imageUrl = req.file.path; // multer-cloudinary returns the URL here
+        imageUrl = req.file.path;
       }
 
+      // 4️⃣ Create new recipe
       const newRecipe = new Recipe({
         author: req.user.id,
         title,
@@ -219,21 +229,30 @@ app.post(
         imageUrl,
       });
 
-      const savedRecipe = await newRecipe.save();
-      console.log("Recipe saved successfully:", savedRecipe);
+      // 5️⃣ Save to database
+      await newRecipe.save();
 
-      return res.status(201).json(savedRecipe);
+      console.log("Recipe saved successfully:", newRecipe);
+      return res.status(201).json({ status: true, recipe: newRecipe });
     } catch (err) {
-      console.error("Error creating recipe:", err);
+      // 6️⃣ Catch all errors
+      console.error("Error in /uploadrecipes:", err);
+      let errorMessage = "Server error";
 
-      // Send detailed error response to frontend
-      return res.status(500).json({
-        message: err.message || "Server error while uploading recipe",
-        stack: err.stack,
-      });
+      // Multer-specific errors
+      if (err instanceof multer.MulterError) {
+        errorMessage = `Multer Error: ${err.message}`;
+      } else if (err.name === "MongoError") {
+        errorMessage = `Database Error: ${err.message}`;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      return res.status(500).json({ message: errorMessage, stack: err.stack });
     }
   }
 );
+
 
 
 app.get("/myrecipes", verifyuser, async (req, res) => {

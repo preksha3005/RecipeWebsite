@@ -54,13 +54,11 @@ export default function CreateRecipe() {
       console.log("Recipe created:", res.data);
       navigate("/my-recipes"); // redirect back to MyRecipes page
     } catch (err) {
-      console.error("Full Axios error:", err);
-      if (err.response) {
-        alert(`Failed to create recipe: ${err.response.data.message}`);
-        console.error("Backend stack trace:", err.response.data.stack);
-      } else {
-        alert("Failed to create recipe. Network error or server down.");
-      }
+      console.error("Error uploading recipe:", err.response?.data || err);
+      alert(
+        "Failed to create recipe: " +
+          (err.response?.data?.message || "Try again!")
+      );
     } finally {
       setLoading(false);
     }
