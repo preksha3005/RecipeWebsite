@@ -54,10 +54,11 @@ export default function CreateRecipe() {
       console.log("Recipe created:", res.data);
       navigate("/my-recipes"); // redirect back to MyRecipes page
     } catch (err) {
-      console.error("Error uploading recipe:", err.response?.data || err);
+      console.error("Full Axios error:", err.response?.data || err);
       alert(
         "Failed to create recipe: " +
-          (err.response?.data?.message || "Try again!")
+          (err.response?.data?.message ||
+            "Server error. Check console for details.")
       );
     } finally {
       setLoading(false);

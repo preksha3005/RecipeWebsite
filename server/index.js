@@ -192,33 +192,28 @@ const upload = multer({ storage });
 // Upload Recipe Route (Fixed)
 app.post(
   "/uploadrecipes",
-  verifyuser, // First verify user
-  upload.single("image"), // Then handle image upload
+  verifyuser,
+  (req, res, next) => {
+    upload.single("image")(req, res, function (err) {
+      if (err) {
+        console.error("Multer error:", err);
+        return res.status(400).json({ message: "Image upload failed", error: err.message });
+      }
+      next();
+    });
+  },
   async (req, res) => {
     try {
-      // 1️⃣ Check that req.user exists
-      if (!req.user) {
-        return res.status(401).json({ message: "Unauthorized: User not verified" });
-      }
-
-      console.log("Incoming upload from:", req.user);
-      console.log("Body received:", req.body);
-      console.log("File received:", req.file);
+      if (!req.user) return res.status(401).json({ message: "Unauthorized" });
 
       const { title, description, ingredients, steps, tags } = req.body;
 
-      // 2️⃣ Validate required fields
       if (!title || !description || !ingredients || !steps) {
         return res.status(400).json({ message: "Missing required fields" });
       }
 
-      // 3️⃣ Get image URL if provided
-      let imageUrl = "";
-      if (req.file) {
-        imageUrl = req.file.path;
-      }
+      const imageUrl = req.file?.path || "";
 
-      // 4️⃣ Create new recipe
       const newRecipe = new Recipe({
         author: req.user.id,
         title,
@@ -229,29 +224,20 @@ app.post(
         imageUrl,
       });
 
-      // 5️⃣ Save to database
       await newRecipe.save();
 
       console.log("Recipe saved successfully:", newRecipe);
       return res.status(201).json({ status: true, recipe: newRecipe });
     } catch (err) {
-      // 6️⃣ Catch all errors
       console.error("Error in /uploadrecipes:", err);
-      let errorMessage = "Server error";
-
-      // Multer-specific errors
-      if (err instanceof multer.MulterError) {
-        errorMessage = `Multer Error: ${err.message}`;
-      } else if (err.name === "MongoError") {
-        errorMessage = `Database Error: ${err.message}`;
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
-
-      return res.status(500).json({ message: errorMessage, stack: err.stack });
+      return res.status(500).json({
+        message: err.message || "Server error",
+        stack: err.stack,
+      });
     }
   }
 );
+
 
 
 app.get("/myrecipes", verifyuser, async (req, res) => {
