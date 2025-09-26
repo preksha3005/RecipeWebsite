@@ -253,17 +253,6 @@ app.post(
   }
 );
 
-app.get("/test-cloudinary", async (req, res) => {
-  try {
-    // Try fetching your account info from Cloudinary
-    const result = await cloudinary.api.resources({ max_results: 1 });
-    res.json({ status: "success", result });
-  } catch (err) {
-    console.error("Cloudinary test failed:", err);
-    res.status(500).json({ status: "error", message: err.message });
-  }
-});
-
 
 app.get("/myrecipes", verifyuser, async (req, res) => {
   try {
