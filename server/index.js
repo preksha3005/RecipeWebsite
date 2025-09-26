@@ -189,54 +189,52 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
+// Upload Recipe Route (Fixed)
 app.post(
   "/uploadrecipes",
-  verifyuser,
+  verifyuser, // verify user BEFORE handling file upload
   upload.single("image"),
   async (req, res) => {
     try {
       console.log("Incoming upload from:", req.user);
-      console.log("Body received:", req.body);
-      console.log("File received:", req.file);
 
       const { title, description, ingredients, steps, tags } = req.body;
-      const authorId = req.user.id;
 
-      // Get the image URL directly from the multer-cloudinary middleware
-      let imageUrl = "";
-      if (req.file) {
-        imageUrl = req.file.path;
+      if (!title || !description || !ingredients || !steps) {
+        return res.status(400).json({ message: "Missing required fields" });
       }
 
-      // Create a new recipe object
+      let imageUrl = "";
+      if (req.file) {
+        imageUrl = req.file.path; // multer-cloudinary returns the URL here
+      }
+
       const newRecipe = new Recipe({
-        author: authorId,
+        author: req.user.id,
         title,
         description,
-        ingredients: ingredients ? ingredients.split(",") : [],
-        steps: steps ? steps.split(",") : [],
-        tags: tags ? tags.split(",") : [],
-        imageUrl: imageUrl,
+        ingredients: ingredients.split(",").map((i) => i.trim()),
+        steps: steps.split(",").map((s) => s.trim()),
+        tags: tags ? tags.split(",").map((t) => t.trim()) : [],
+        imageUrl,
       });
 
-      // Save the new recipe to your database
-      await newRecipe.save();
-      console.log(
-        "Cloudinary config:",
-        process.env.CLOUDINARY_CLOUD_NAME,
-        process.env.CLOUDINARY_API_KEY,
-        process.env.CLOUDINARY_API_SECRET
-      );
-      console.log("req.file:", req.file);
-      console.log("req.body:", req.body);
+      const savedRecipe = await newRecipe.save();
+      console.log("Recipe saved successfully:", savedRecipe);
 
-      return res.status(201).json(newRecipe);
+      return res.status(201).json(savedRecipe);
     } catch (err) {
       console.error("Error creating recipe:", err);
-      return res.status(500).json({ message: err.message, stack: err.stack });
+
+      // Send detailed error response to frontend
+      return res.status(500).json({
+        message: err.message || "Server error while uploading recipe",
+        stack: err.stack,
+      });
     }
   }
 );
+
 
 app.get("/myrecipes", verifyuser, async (req, res) => {
   try {
