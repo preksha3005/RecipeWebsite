@@ -221,14 +221,30 @@ app.post(
 
       // Save the new recipe to your database
       await newRecipe.save();
+      console.log(
+        "Cloudinary config:",
+        process.env.CLOUDINARY_CLOUD_NAME,
+        process.env.CLOUDINARY_API_KEY,
+        process.env.CLOUDINARY_API_SECRET
+      );
+      console.log("req.file:", req.file);
+      console.log("req.body:", req.body);
+
       return res.status(201).json(newRecipe);
     } catch (err) {
-      console.error("Error uploading recipe:", err);
-      res.status(500).json({
-        message: "Server error",
-        error: err.message,
-        stack: err.stack,
-      });
+      // Log the full error object for debugging
+      console.error("Full Axios error:", err);
+      // Log server response if available
+      if (err.response) {
+        console.error("Backend response:", err.response.data);
+        alert(
+          `Failed to create recipe: ${
+            err.response.data.message || "Server error"
+          }`
+        );
+      } else {
+        alert("Failed to create recipe. Network error or server is down.");
+      }
     }
   }
 );
@@ -476,5 +492,5 @@ app.post("/search", verifyuser, async (req, res) => {
 // }
 
 app.listen(process.env.PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${process.env.PORT}`);
+  console.log(`🚀 Server running at ${process.env.PORT}`);
 });
