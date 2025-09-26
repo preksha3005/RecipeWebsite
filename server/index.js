@@ -183,7 +183,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "recipes",
-    allowed_formats: ["jpg", "png", "jpeg", ".webp"],
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
   },
 });
 
