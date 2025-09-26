@@ -51,6 +51,8 @@ export default function MyRecipes() {
         {myrecipes.length > 0 ? (
           myrecipes.map((r) => (
             <div key={r._id} className="recipe-card">
+              {console.log(r.imageUrl)}
+
               <img src={r.imageUrl || "default.jpg"} alt={r.title} />
               <h3>{r.title}</h3>
               <p>{r.description.substring(0, 60)}...</p>
