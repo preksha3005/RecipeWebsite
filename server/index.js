@@ -195,6 +195,10 @@ app.post(
   verifyuser,
   async (req, res) => {
     try {
+      console.log("Incoming upload from:", req.user);
+      console.log("Body received:", req.body);
+      console.log("File received:", req.file);
+
       const { title, description, ingredients, steps, tags } = req.body;
       const authorId = req.user.id;
 
