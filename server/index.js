@@ -191,8 +191,8 @@ const upload = multer({ storage });
 
 app.post(
   "/uploadrecipes",
-  upload.single("image"),
   verifyuser,
+  upload.single("image"),
   async (req, res) => {
     try {
       console.log("Incoming upload from:", req.user);
@@ -232,19 +232,8 @@ app.post(
 
       return res.status(201).json(newRecipe);
     } catch (err) {
-      // Log the full error object for debugging
-      console.error("Full Axios error:", err);
-      // Log server response if available
-      if (err.response) {
-        console.error("Backend response:", err.response.data);
-        alert(
-          `Failed to create recipe: ${
-            err.response.data.message || "Server error"
-          }`
-        );
-      } else {
-        alert("Failed to create recipe. Network error or server is down.");
-      }
+      console.error("Error creating recipe:", err);
+      return res.status(500).json({ message: err.message, stack: err.stack });
     }
   }
 );

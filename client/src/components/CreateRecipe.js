@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import '../style/createrecipe.css'
+import "../style/createrecipe.css";
 import Navbar_login from "./Navbar_Login";
 
 // axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
@@ -54,8 +54,12 @@ export default function CreateRecipe() {
       console.log("Recipe created:", res.data);
       navigate("/my-recipes"); // redirect back to MyRecipes page
     } catch (err) {
-      console.error("Error uploading recipe:", err);
-      alert("Failed to create recipe. Try again!");
+      console.error("Full Axios error:", err);
+      if (err.response) {
+        alert(`Failed to create recipe: ${err.response.data.message}`);
+      } else {
+        alert("Failed to create recipe. Network error or server down.");
+      }
     } finally {
       setLoading(false);
     }
@@ -63,60 +67,60 @@ export default function CreateRecipe() {
 
   return (
     <div>
-    <Navbar_login/>
-    <div className="create-recipe-container">
-      <h2>Create a New Recipe</h2>
-      <form onSubmit={handleSubmit} className="create-recipe-form">
-        <input
-          type="text"
-          name="title"
-          placeholder="Recipe Title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="ingredients"
-          placeholder="Ingredients (comma separated)"
-          value={formData.ingredients}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="steps"
-          placeholder="Steps (comma separated)"
-          value={formData.steps}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="tags"
-          placeholder="Tags (comma separated)"
-          value={formData.tags}
-          onChange={handleChange}
-        />
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
+      <Navbar_login />
+      <div className="create-recipe-container">
+        <h2>Create a New Recipe</h2>
+        <form onSubmit={handleSubmit} className="create-recipe-form">
+          <input
+            type="text"
+            name="title"
+            placeholder="Recipe Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="ingredients"
+            placeholder="Ingredients (comma separated)"
+            value={formData.ingredients}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="steps"
+            placeholder="Steps (comma separated)"
+            value={formData.steps}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="tags"
+            placeholder="Tags (comma separated)"
+            value={formData.tags}
+            onChange={handleChange}
+          />
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Uploading..." : "Create Recipe"}
-        </button>
-      </form>
-    </div>
+          <button type="submit" disabled={loading}>
+            {loading ? "Uploading..." : "Create Recipe"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
