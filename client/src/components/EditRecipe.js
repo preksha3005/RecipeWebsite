@@ -52,37 +52,41 @@ export default function EditRecipe() {
   }, [id]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const data = new FormData();
-      data.append("title", recipe.title);
-      data.append("description", recipe.description);
-      data.append("ingredients", recipe.ingredients);
-      data.append("steps", recipe.steps);
-      data.append("tags", recipe.tags);
-      if (recipe.image) {
-        data.append("image", recipe.image);
-      }
-
-      const res = await axios.put(`/editrecipe/${id}`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      console.log("Recipe updated:", res.data);
-      navigate("/my-recipes"); // redirect back to MyRecipes page
-    } catch (err) {
-      console.error("Full Axios error:", err.response?.data || err);
-      alert(
-        "Failed to update recipe: " +
-          (err.response?.data?.message ||
-            "Server error. Check console for details.")
-      );
-    }finally {
-      setLoading(false);
+  try {
+    const data = new FormData();
+    data.append("title", recipe.title);
+    data.append("description", recipe.description);
+    data.append("ingredients", recipe.ingredients);
+    data.append("steps", recipe.steps);
+    data.append("tags", recipe.tags);
+    if (recipe.image) {
+      data.append("image", recipe.image);
     }
-  };
+
+    const res = await axios.put(`/editrecipe/${id}`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    console.log("Recipe updated:", res.data);
+    navigate("/my-recipes"); // redirect back to MyRecipes page
+  } catch (err) {
+    // ✅ Display the exact backend message
+    const backendMessage = err.response?.data?.message || "Server error";
+    const backendError = err.response?.data?.error || null;
+
+    console.error("Full Axios error:", err.response?.data || err);
+
+    alert(
+      `Failed to update recipe: ${backendMessage}` +
+        (backendError ? `\nDetails: ${backendError}` : "")
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div>
