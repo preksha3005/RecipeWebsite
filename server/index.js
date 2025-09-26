@@ -223,8 +223,12 @@ app.post(
       await newRecipe.save();
       return res.status(201).json(newRecipe);
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Server error" });
+      console.error("Error uploading recipe:", err);
+      res.status(500).json({
+        message: "Server error",
+        error: err.message,
+        stack: err.stack,
+      });
     }
   }
 );
