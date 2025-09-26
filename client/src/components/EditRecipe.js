@@ -73,9 +73,13 @@ export default function EditRecipe() {
       console.log("Recipe updated:", res.data);
       navigate("/my-recipes"); // redirect back to MyRecipes page
     } catch (err) {
-      console.error("Error uploading recipe:", err);
-      alert("Failed to update recipe. Try again!");
-    } finally {
+      console.error("Full Axios error:", err.response?.data || err);
+      alert(
+        "Failed to update recipe: " +
+          (err.response?.data?.message ||
+            "Server error. Check console for details.")
+      );
+    }finally {
       setLoading(false);
     }
   };
