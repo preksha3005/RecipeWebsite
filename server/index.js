@@ -183,7 +183,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "recipes",
-    allowed_formats: ["jpg", "png", "jpeg"],
+    allowed_formats: ["jpg", "png", "jpeg", ".webp"],
   },
 });
 
@@ -197,7 +197,9 @@ app.post(
     upload.single("image")(req, res, function (err) {
       if (err) {
         console.error("Multer error:", err);
-        return res.status(400).json({ message: "Image upload failed", error: err.message });
+        return res
+          .status(400)
+          .json({ message: "Image upload failed", error: err.message });
       }
       next();
     });
@@ -237,8 +239,6 @@ app.post(
     }
   }
 );
-
-
 
 app.get("/myrecipes", verifyuser, async (req, res) => {
   try {
