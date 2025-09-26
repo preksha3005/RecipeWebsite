@@ -265,11 +265,13 @@ app.put(
       const recipeId = req.params.id;
       const userId = req.user.id;
 
+      // 1️⃣ Check if recipe exists
       const recipe = await Recipe.findById(recipeId);
       if (!recipe) {
         return res.status(404).json({ message: "Recipe not found" });
       }
 
+      // 2️⃣ Check if user is authorized
       if (recipe.author.toString() !== userId.toString()) {
         return res
           .status(403)
@@ -278,25 +280,41 @@ app.put(
 
       const { title, description, ingredients, steps, tags } = req.body;
 
+      // 3️⃣ Update fields if provided
       if (title) recipe.title = title;
       if (description) recipe.description = description;
-      if (ingredients) recipe.ingredients = ingredients.split(",");
-      if (steps) recipe.steps = steps.split(",");
-      if (tags) recipe.tags = tags.split(",");
+      if (ingredients) recipe.ingredients = ingredients.split(",").map(i => i.trim());
+      if (steps) recipe.steps = steps.split(",").map(s => s.trim());
+      if (tags) recipe.tags = tags.split(",").map(t => t.trim());
 
+      // 4️⃣ Update image if provided
       if (req.file) {
         recipe.imageUrl = req.file.path;
       }
 
+      // 5️⃣ Save changes
       await recipe.save();
+
       res.json({
         status: true,
         message: "Recipe updated successfully",
         recipe,
       });
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Server error" });
+      // 6️⃣ Detailed error handling
+      console.error("Error in /editrecipe/:id:", err);
+
+      let errorMessage = "Server error";
+
+      if (err instanceof multer.MulterError) {
+        errorMessage = `Multer Error: ${err.message}`;
+      } else if (err.name === "MongoError") {
+        errorMessage = `Database Error: ${err.message}`;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      res.status(500).json({ message: errorMessage, stack: err.stack });
     }
   }
 );
