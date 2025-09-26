@@ -253,7 +253,7 @@ app.post(
   }
 );
 
-pp.get("/test-cloudinary", async (req, res) => {
+app.get("/test-cloudinary", async (req, res) => {
   try {
     // Try fetching your account info from Cloudinary
     const result = await cloudinary.api.resources({ max_results: 1 });
